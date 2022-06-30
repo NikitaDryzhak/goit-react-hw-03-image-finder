@@ -7,7 +7,7 @@ const ImageGalleryItem = ({ id, webformatURL, largeImageURL, openModal }) => {
       <img
         src={webformatURL}
         srcSet={largeImageURL}
-        alt="picture"
+        alt="picName"
         className={s.galleryImg}
         onClick={openModal}
       />
