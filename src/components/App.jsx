@@ -37,15 +37,14 @@ export class App extends Component {
         this.setState(prevState => ({
           images: [...prevState.images, ...mapper(data.hits)],
           isLoading: false,
+          isShow: true,
         }));
-        if (data.hits.length === 0) {
-          this.setState({ isShow: false });
-        }
         if (data.totalHits === 0) {
           toast.error('There is no pictures!');
         }
         if (data.hits.length < 12 && data.totalHits !== 0) {
           toast.info('This is the end of collection!');
+          this.setState({ isShow: false });
         }
       })
       .catch(error => console.log(error));
@@ -53,7 +52,7 @@ export class App extends Component {
 
   onSearch = pictureName => {
     if (pictureName) {
-      this.setState({ pictureName, isShow: true });
+      this.setState({ pictureName });
     } else toast.warn('Please, enter the picture name!');
   };
 
@@ -72,7 +71,7 @@ export class App extends Component {
 
   render() {
     const { onSearch, onloadMore, openModal, closeModal } = this;
-    const { images, isShow, isLoading, showModal, largeImageURL } = this.state;
+    const { images, isLoading, showModal, largeImageURL, isShow } = this.state;
     return (
       <>
         <Searchbar onSubmit={onSearch} />
@@ -80,7 +79,7 @@ export class App extends Component {
           <ImageGallery images={images} openModal={openModal} />
         )}
         {(isLoading && <Loader />) ||
-          (images.length > 0 && <Button onLoadMore={onloadMore} />)}
+          (images.length > 0 && isShow && <Button onLoadMore={onloadMore} />)}
 
         {showModal && (
           <Modal closeModal={closeModal} largeImageURL={largeImageURL} />
