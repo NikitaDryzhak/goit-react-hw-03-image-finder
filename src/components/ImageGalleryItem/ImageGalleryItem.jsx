@@ -1,9 +1,9 @@
 import s from './ImageGalleryItem.module.css';
 import PropTypes from 'prop-types';
 
-const ImageGalleryItem = ({ id, webformatURL, largeImageURL, openModal }) => {
+const ImageGalleryItem = ({ webformatURL, largeImageURL, openModal }) => {
   return (
-    <li className={s.galleryItem} key={id}>
+    <li className={s.galleryItem}>
       <img
         src={webformatURL}
         srcSet={largeImageURL}
